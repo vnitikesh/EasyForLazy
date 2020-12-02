@@ -25,6 +25,7 @@ class RegisterAPI(generics.GenericAPIView):
         "user": UserSerializer(user, context = self.get_serializer_context()).data,
         "token": AuthToken.objects.create(user)[1]
         })
+<<<<<<< HEAD
 '''
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -40,6 +41,10 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
 
+=======
+
+#LoginAPI
+>>>>>>> 27b3f254a9bf16b77841d42cfc5345d88efc14e3
 class LoginAPI(KnoxLoginView):
     permission_classes = (permissions.AllowAny, )
 
@@ -49,7 +54,13 @@ class LoginAPI(KnoxLoginView):
         user = serializer.validated_data['user']
         login(request, user)
         return super(LoginAPI, self).post(request, format = None)
-
+    
+#GetUserAPI
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    
+#ChangePasswordAPI
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     model = User
