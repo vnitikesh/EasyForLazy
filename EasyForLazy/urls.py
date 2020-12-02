@@ -18,16 +18,24 @@ from django.urls import path, include
 from authorize import views
 from rest_framework import routers
 from knox import views as knox_views
+from rest_framework.urlpatterns import format_suffix_patterns
 
-router = routers.DefaultRouter()
-router.register(r'users',views.UserViewSet)
+#router = routers.DefaultRouter()
+#router.register(r'users',views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/register/',views.RegisterAPI.as_view(),name = 'register'),
-    path('',include(router.urls)),
+    #path('api/register/',views.RegisterAPI.as_view(),name = 'register'),
+    #path('users/',views.UserList.as_view(), name = 'user-list'),
+    #path('users/<int:pk>/', views.UserDetail.as_view(), name = 'user-detail'),
+    #path('',include(router.urls)),
+    path('api-auth/',include('rest_framework.urls')),
+    path('', include('authorize.urls')),
+
     path('api/login/', views.LoginAPI.as_view(), name = 'login'),
-    path('api/logout/', knox_views.LogoutView.as_view(),name = 'logout'),
-    path('api/logoutall/',knox_views.LogoutAllView.as_view(), name = 'logoutall'),
-    path('api/change-password/', views.ChangePasswordView.as_view(), name = 'change-password'),
+    #path('api/logout/', knox_views.LogoutView.as_view(),name = 'logout'),
+    #path('api/logoutall/',knox_views.LogoutAllView.as_view(), name = 'logoutall'),
+    #path('api/change-password/', views.ChangePasswordView.as_view(), name = 'change-password'),
+
+
 ]
